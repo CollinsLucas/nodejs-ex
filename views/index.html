@@ -220,7 +220,7 @@ pre {
           </hgroup>
 
 
-          <div id="content">
+          <div id="change_content">
             <h1>Change Calculator</h1>
         
             <label>Enter number of cents (0-99):</label>
@@ -244,6 +244,43 @@ pre {
             <p>&nbsp;</p>
         
         </div>
+
+        <div id="future_content">
+          <h1>Future Value Calculator</h1>
+      
+          <label>Enter initial investment:</label>
+          <input type="text" id="present_value" size="10"/>
+          <label>Enter yearly return %:</label>
+          <input type="text" id="interest_rate" size="10"/>
+          <input type="button" value="Calculate" name="calculate" id="calculate" onclick="calc_future()"/><br />
+      
+          <p>&nbsp;</p>
+          <h2>Future Value</h2>
+
+          <label>1 Year:</label>
+          <input type="text" id="one_year" size = "10" class="disabled" disabled="disabled" /><br />
+                          
+          <label>2 Years:</label>
+          <input type="text" id="two_years" size = "10" class="disabled" disabled="disabled" /><br />
+          
+          <label>3 Years:</label>
+          <input type="text" id="three_years" size = "10" class="disabled" disabled="disabled" /><br />
+              
+          <label>4 Years:</label>
+          <input type="text" id="four_years" size = "10" class="disabled" disabled="disabled" /><br />
+
+          <label>5 Years:</label>
+          <input type="text" id="five_years" size = "10" class="disabled" disabled="disabled" /><br />
+
+          <label>10 Years:</label>
+          <input type="text" id="ten_years" size = "10" class="disabled" disabled="disabled" /><br />
+
+          <label>15 Years:</label>
+          <input type="text" id="fifteen_years" size = "10" class="disabled" disabled="disabled" /><br />
+                          
+          <p>&nbsp;</p>
+      
+      </div>
 
         <footer>
           <div class="logo"><a href="https://www.openshift.com/"></a></div>
@@ -298,6 +335,32 @@ pre {
             document.getElementById("dimes").value = dime;
             document.getElementById("nickels").value = nick;
             document.getElementById("pennies").value = penn;
+
+        }
+
+        // Function to calculate exact change based on input //
+        function calc_future() {
+            // Input from user //
+            var present_value = document.getElementById("present_value").value;
+            var interest = document.getElementById('interest_rate').value;
+
+            var one_year = present_value * (1 + interest)**1
+            var two_years = present_value * (1 + interest)**2
+            var three_years = present_value * (1 + interest)**3
+            var four_years = present_value * (1 + interest)**4
+            var five_years = present_value * (1 + interest)**5
+            var ten_years = present_value * (1 + interest)**10
+            var fifteen_years = present_value * (1 + interest)**15
+            
+            
+            // Sets values on the page as the results from the calculation //
+            document.getElementById("one_year").value = one_year;
+            document.getElementById("two_years").value = two_years;
+            document.getElementById("three_years").value = three_years;
+            document.getElementById("four_years").value = four_years;
+            document.getElementById("five_years").value = five_years;
+            document.getElementById("ten_years").value = ten_years;
+            document.getElementById("fifteen_years").value = fifteen_years;
 
         }
     </script>
