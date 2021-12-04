@@ -342,7 +342,7 @@ pre {
         function calc_future() {
             // Input from user //
             var present_value = document.getElementById("present_value").value;
-            var interest = document.getElementById('interest_rate').value;
+            var interest = document.getElementById('interest_rate').value / 100;
 
             var one_year = present_value * (1 + interest)**1
             var two_years = present_value * (1 + interest)**2
