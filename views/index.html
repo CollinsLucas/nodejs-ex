@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Welcome to OpenShift</title>
+  <title>Collins Financials</title>
 
 
 <style>
@@ -42,10 +42,12 @@ section{
   display: block;
 }
 body {
+  background-color: rgb(43, 43, 43);
   color: #404040;
   font-family: "Helvetica Neue",Helvetica,"Liberation Sans",Arial,sans-serif;
   font-size: 14px;
   line-height: 1.4;
+  overflow: auto;
 }
 
 html {
@@ -149,17 +151,18 @@ h1, h2, h3 {
   margin: 1.5em 0 .3em;
 }
 h1 {
+  color: #FFFFFF;
   font-size: 25px;
   font-weight: 300;
-  border-bottom: 1px solid #fff;
+  border-bottom: 1px solid;
   margin-bottom: .5em;
+  text-align: center;
 }
 h1:after {
   content: "";
   display: block;
   width: 100%;
   height: 1px;
-  background-color: #ddd;
 }
 h2 {
   font-size: 19px;
@@ -178,56 +181,99 @@ p + h2 {
   margin-top: 2em;
 }
 html {
-  background: #f5f5f5;
   height: 100%;
 }
-code{
+
+input[type="button"], input[type="reset"] {
   background-color: white;
-  border: 1px solid #ccc;
-  padding: 1px 5px;
-  color: #888;
+  color: black;
+  border: 2px solid #555555;
+  border-radius: 4px;
+  font-size: 20px;
 }
-.code{
-  background-color: white;
-  border: 1px solid #ccc;
-  padding: 1px 5px;
-  color: #888;
+
+input[type="button"]:hover, input[type="reset"]:hover {
+  background-color: #1d2950;
+  box-shadow: 0 5px #666;
+  color: white;
 }
-pre {
-  display: block;
-  padding: 13.333px 20px;
-  margin: 0 0 20px;
-  font-size: 13px;
-  line-height: 1.4;
-  background-color: #fff;
-  border-left: 2px solid rgba(120,120,120,0.35);
-  white-space: pre;
-  white-space: pre-wrap;
-  word-break: normal;
-  word-wrap: break-word;
-  overflow: auto;
-  font-family: Menlo,Monaco,"Liberation Mono",Consolas,monospace !important;
+
+input[type="button"]:active, input[type="reset"]:active {
+  background-color: #282b28;
+  box-shadow: 0 0px #666;
+  transform: translateY(4px);
 }
+
 #change_content {
-    float: left;
-    width: 600px;
+    font-size: medium;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+    width: 800px;
     margin: 10px auto;
     padding: 5px 20px;
     background: #FFFFFF;
     border: 2px solid #000000;
-    border-radius: 4px;
+    border-radius: 6px;
+}
+#change_content h1 {
+  text-align: center;
+  color: #000;
 }
 #future_content {
-    float: left;
-    width: 600px;
+    font-size: medium;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+    width: 800px;
     margin: 10px auto;
     padding: 5px 20px;
     background: #FFFFFF;
     border: 2px solid #000000;
-    border-radius: 4px;
+    border-radius: 6px;
+}
+#future_content h1 {
+  color: #000;
+  text-align: center;
 }
 .disabled {
     color: #000000;
+    cursor: not-allowed;
+}
+input[type=text] {
+  width: 15%;
+  padding: 5px 8px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border-radius: 4px;
+}
+input[type=text]:focus {
+  border: 3px solid #555;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto;
+  row-gap: 5px;
+  column-gap: 5px;
+  background-color: transparent;
+  border-radius: 14px;
+  border: 3px solid #555;
+  padding: 10px;
+}
+.grid-item {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 2px solid rgba(0, 0, 0, 0.8);
+  border-radius: 12px;
+  padding: 5px;
+  text-align: center;
+}
+.grid-item input[type=text] {
+  width: 25%;
+  padding: 5px 8px;
+  margin: 8px 0;
+  box-sizing: content-box;
+  border-radius: 4px;
 }
 
 </style>
@@ -240,13 +286,14 @@ pre {
             <h1>Welcome to the Collins Financial Calculator</h1>
           </hgroup>
 
-
+          <form action="#">
           <div id="change_content">
             <h1>Change Calculator</h1>
         
             <label>Enter number of cents (0-99):</label>
-            <input type="text" id="cents" size="6"/>
-            <input type="button" value="Calculate" name="calculate" id="calculate" onclick="calc()"/><br />
+            <input type="text" id="cents" size="6" placeholder="Ex: 72..." required/><br>
+            <input type="button" value="Calculate" name="calculate" id="calculate" onclick="calc()"/>
+            <input type="reset" value="Clear" name="clear" id="clear"/>
         
             <p>&nbsp;</p>
                 
@@ -265,126 +312,181 @@ pre {
             <p>&nbsp;</p>
         
         </div>
+        </form>
 
+        <form action='#'>
         <div id="future_content">
           <h1>Future Value Calculator</h1>
       
           <label>Enter initial investment:</label>
-          <input type="text" id="present_value" size="10"/><br>
+          <input type="text" id="present_value" size="10" placeholder="Ex: 1000..."/><br>
           <label>Enter yearly return %:</label>
-          <input type="text" id="interest_rate" size="10"/><br>
-          <input type="button" value="Calculate" name="calculate" id="calculate" onclick="calc_future()"/><br />
+          <input type="text" id="interest_rate" size="10" placeholder="Ex: 15..."/><br>
+          <input type="button" value="Calculate" name="calculate" id="calculate" onclick="calc_future()"/>
+          <input type="reset" value="Clear" name="clear" id="clear"/>
       
           <p>&nbsp;</p>
-          <h2>Future Value</h2>
+          <h2 style="text-align: center;">Future Value</h2>
 
-          <label>1 Year:</label>
-          <input type="text" id="one_year" size = "10" class="disabled" disabled="disabled" /><br />
-                          
-          <label>2 Years:</label>
-          <input type="text" id="two_years" size = "10" class="disabled" disabled="disabled" /><br />
-          
-          <label>3 Years:</label>
-          <input type="text" id="three_years" size = "10" class="disabled" disabled="disabled" /><br />
-              
-          <label>4 Years:</label>
-          <input type="text" id="four_years" size = "10" class="disabled" disabled="disabled" /><br />
+          <div class="grid-container">
+            <div class="grid-item">
+              <label>1 Year:</label>
+              <input type="text" id="one_year" size = "10" class="disabled" disabled="disabled" /><br />
+            </div>
+               
+            <div class="grid-item">
+              <label>2 Years:</label>
+              <input type="text" id="two_years" size = "10" class="disabled" disabled="disabled" /><br />
+            </div>
 
-          <label>5 Years:</label>
-          <input type="text" id="five_years" size = "10" class="disabled" disabled="disabled" /><br />
+            <div class="grid-item">
+              <label>3 Years:</label>
+              <input type="text" id="three_years" size = "10" class="disabled" disabled="disabled" /><br />
+            </div>
 
-          <label>10 Years:</label>
-          <input type="text" id="ten_years" size = "10" class="disabled" disabled="disabled" /><br />
+            <div class="grid-item">
+              <label>4 Years:</label>
+              <input type="text" id="four_years" size = "10" class="disabled" disabled="disabled" /><br />
+            </div>
 
-          <label>15 Years:</label>
-          <input type="text" id="fifteen_years" size = "10" class="disabled" disabled="disabled" /><br />
+            <div class="grid-item">
+              <label>5 Years:</label>
+              <input type="text" id="five_years" size = "10" class="disabled" disabled="disabled" /><br />
+            </div>
+
+            <div class="grid-item">
+              <label>10 Years:</label>
+              <input type="text" id="ten_years" size = "10" class="disabled" disabled="disabled" /><br />
+            </div>
+
+            <div class="grid-item">
+              <label>15 Years:</label>
+              <input type="text" id="fifteen_years" size = "10" class="disabled" disabled="disabled" /><br />
+            </div>
+
+            <div class="grid-item">
+              <label>20 Years:</label>
+              <input type="text" id="twenty_years" size = "10" class="disabled" disabled="disabled" /><br />
+            </div>
+          </div>
                           
           <p>&nbsp;</p>
       
       </div>
+      </form>
 
         <footer>
           <div class="logo"><a href="https://www.openshift.com/"></a></div>
         </footer>
     <script>
-        // Function to calculate exact change based on input //
-        function calc() {
-            // Input from user //
-            var cents = document.getElementById("cents").value;
+      // Function to calculate exact change based on input //
+      function calc() {
+          // Input from user //
+          var cents = document.getElementById("cents").value;
 
-            // Parsing input as an Integer, and creating values to store num of each coin //
-            var num = parseInt(cents);
-            var quar = 0;
-            var dime = 0;
-            var nick = 0;
-            var penn = 0;
-            
-            // while loop to continuously change the value of num until its 0 //
-            while (num != 0) {
+          if (cents == "" || isNaN(cents)) return;
 
-                // If the num is greater than 99, we send an error and break out of the loop //
-                if (num > 99) {
-                    alert("Number must be between 0 and 99");
-                    break
-                }
+          // Parsing input as an Integer, and creating values to store num of each coin //
+          var num = parseInt(cents);
+          var quar = 0;
+          var dime = 0;
+          var nick = 0;
+          var penn = 0;
+          
+          // while loop to continuously change the value of num until its 0 //
+          while (num != 0) {
 
-                if (num >= 25) {
-                    // If the num is greater than 25, a quarter can be used //
-                    quar += 1;
-                    num -= 25;
-                }
-                else if (num >= 10) {
-                    // If the num is greater than 10, a dime can be used //
-                    dime += 1;
-                    num -= 10;
-                }
-                else if (num >= 5) {
-                    // If the num is greater than 5, a nickel can be used //
-                    nick += 1;
-                    num -= 5;
-                }
-                else if (num >= 1) {
-                    // If the num is greater than 1, a penny can be used //
-                    penn += 1;
-                    num -= 1;
-                }
+              // If the num is greater than 99, we send an error and break out of the loop //
+              if (num > 99) {
+                  alert("Number must be between 0 and 99");
+                  break
+              }
 
-            }
-            
-            // Sets values on the page as the results from the calculation //
-            document.getElementById("quarters").value = quar;
-            document.getElementById("dimes").value = dime;
-            document.getElementById("nickels").value = nick;
-            document.getElementById("pennies").value = penn;
+              if (num >= 25) {
+                  // If the num is greater than 25, a quarter can be used //
+                  quar += 1;
+                  num -= 25;
+              }
+              else if (num >= 10) {
+                  // If the num is greater than 10, a dime can be used //
+                  dime += 1;
+                  num -= 10;
+              }
+              else if (num >= 5) {
+                  // If the num is greater than 5, a nickel can be used //
+                  nick += 1;
+                  num -= 5;
+              }
+              else if (num >= 1) {
+                  // If the num is greater than 1, a penny can be used //
+                  penn += 1;
+                  num -= 1;
+              }
 
+          }
+          
+          // Sets values on the page as the results from the calculation //
+          document.getElementById("quarters").value = quar;
+          document.getElementById("dimes").value = dime;
+          document.getElementById("nickels").value = nick;
+          document.getElementById("pennies").value = penn;
+
+      }
+
+      // Function to calculate exact change based on input //
+      function calc_future() {
+          // Input from user //
+          var present_value = document.getElementById("present_value").value;
+          var interest = document.getElementById('interest_rate').value / 100;
+
+          var one_year = present_value * (1 + interest)**1
+          var two_years = present_value * (1 + interest)**2
+          var three_years = present_value * (1 + interest)**3
+          var four_years = present_value * (1 + interest)**4
+          var five_years = present_value * (1 + interest)**5
+          var ten_years = present_value * (1 + interest)**10
+          var fifteen_years = present_value * (1 + interest)**15
+          var twenty_years = present_value * (1 + interest)**20
+          
+          let dollarUSLocale = Intl.NumberFormat('en-US', {
+            style: "currency",
+            currency: "USD",
+          });
+          
+          // Sets values on the page as the results from the calculation //
+          document.getElementById("one_year").value = dollarUSLocale.format(one_year);
+          document.getElementById("two_years").value = dollarUSLocale.format(two_years);
+          document.getElementById("three_years").value = dollarUSLocale.format(three_years);
+          document.getElementById("four_years").value = dollarUSLocale.format(four_years);
+          document.getElementById("five_years").value = dollarUSLocale.format(five_years);
+          document.getElementById("ten_years").value = dollarUSLocale.format(ten_years);
+          document.getElementById("fifteen_years").value = dollarUSLocale.format(fifteen_years);
+          document.getElementById("twenty_years").value = dollarUSLocale.format(twenty_years);
+
+      }
+
+      const coinsForm = document.getElementById("cents");
+
+      coinsForm.addEventListener("input", function (event) {
+        if (coinsForm.validity.valueMissing) {
+          coinsForm.setCustomValidity("Please enter a value!");
+        } else {
+          coinsForm.setCustomValidity("");
         }
+      });
+      const form = document.getElementById('calculate');
+      form.addEventListener('submit', function (event) {
+      // if the form contains valid data, we let it submit
 
-        // Function to calculate exact change based on input //
-        function calc_future() {
-            // Input from user //
-            var present_value = document.getElementById("present_value").value;
-            var interest = document.getElementById('interest_rate').value / 100;
-
-            var one_year = present_value * (1 + interest)**1
-            var two_years = present_value * (1 + interest)**2
-            var three_years = present_value * (1 + interest)**3
-            var four_years = present_value * (1 + interest)**4
-            var five_years = present_value * (1 + interest)**5
-            var ten_years = present_value * (1 + interest)**10
-            var fifteen_years = present_value * (1 + interest)**15
-            
-            
-            // Sets values on the page as the results from the calculation //
-            document.getElementById("one_year").value = one_year.toFixed();
-            document.getElementById("two_years").value = two_years.toFixed();
-            document.getElementById("three_years").value = three_years.toFixed();
-            document.getElementById("four_years").value = four_years.toFixed();
-            document.getElementById("five_years").value = five_years.toFixed();
-            document.getElementById("ten_years").value = ten_years.toFixed();
-            document.getElementById("fifteen_years").value = fifteen_years.toFixed();
-
-        }
+      if(!coinsForm.validity.valueMissing) {
+        // If it isn't, we display an appropriate error message
+        coinsForm.setCustomValidity("Please enter a value!");
+        // Then we prevent the form from being sent by canceling the event
+        event.preventDefault();
+      }
+    });
     </script>
 </section>
 </body>
 </html>
+
