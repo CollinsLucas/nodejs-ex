@@ -208,6 +208,27 @@ pre {
   overflow: auto;
   font-family: Menlo,Monaco,"Liberation Mono",Consolas,monospace !important;
 }
+#change_content {
+    float: left;
+    width: 600px;
+    margin: 10px auto;
+    padding: 5px 20px;
+    background: #FFFFFF;
+    border: 2px solid #000000;
+    border-radius: 4px;
+}
+#future_content {
+    float: left;
+    width: 600px;
+    margin: 10px auto;
+    padding: 5px 20px;
+    background: #FFFFFF;
+    border: 2px solid #000000;
+    border-radius: 4px;
+}
+.disabled {
+    color: #000000;
+}
 
 </style>
 
@@ -249,9 +270,9 @@ pre {
           <h1>Future Value Calculator</h1>
       
           <label>Enter initial investment:</label>
-          <input type="text" id="present_value" size="10"/>
+          <input type="text" id="present_value" size="10"/><br>
           <label>Enter yearly return %:</label>
-          <input type="text" id="interest_rate" size="10"/>
+          <input type="text" id="interest_rate" size="10"/><br>
           <input type="button" value="Calculate" name="calculate" id="calculate" onclick="calc_future()"/><br />
       
           <p>&nbsp;</p>
@@ -354,13 +375,13 @@ pre {
             
             
             // Sets values on the page as the results from the calculation //
-            document.getElementById("one_year").value = one_year;
-            document.getElementById("two_years").value = two_years;
-            document.getElementById("three_years").value = three_years;
-            document.getElementById("four_years").value = four_years;
-            document.getElementById("five_years").value = five_years;
-            document.getElementById("ten_years").value = ten_years;
-            document.getElementById("fifteen_years").value = fifteen_years;
+            document.getElementById("one_year").value = one_year.toFixed();
+            document.getElementById("two_years").value = two_years.toFixed();
+            document.getElementById("three_years").value = three_years.toFixed();
+            document.getElementById("four_years").value = four_years.toFixed();
+            document.getElementById("five_years").value = five_years.toFixed();
+            document.getElementById("ten_years").value = ten_years.toFixed();
+            document.getElementById("fifteen_years").value = fifteen_years.toFixed();
 
         }
     </script>
