@@ -216,95 +216,91 @@ pre {
 
 <section class='container'>
           <hgroup>
-            <h1>Welcome to your Node.js application on OpenShift</h1>
+            <h1>Welcome to the Collins Financial Calculator</h1>
           </hgroup>
 
 
-        <div class="row">
-          <section class='col-xs-12 col-sm-6 col-md-6'>
-            <section>
-              <h2>How to use this example application</h2>
-                <p>For instructions on how to use this application with OpenShift, start by reading the <a href="http://docs.okd.io/latest/dev_guide/templates.html#using-the-quickstart-templates">Developer Guide</a>.</p>
-
-              <h2>Deploying code changes</h2>
-                <p>
-                  The source code for this application is available to be forked from the <a href="https://www.github.com/sclorg/nodejs-ex">OpenShift GitHub repository</a>.
-                  You can configure a webhook in your repository to make OpenShift automatically start a build whenever you push your code:
-                </p>
-
-<ol>
-  <li>From the Web Console homepage, navigate to your project</li>
-  <li>Click on Browse &gt; Builds</li>
-  <li>Click the link with your BuildConfig name</li>
-  <li>Click the Configuration tab</li>
-  <li>Click the "Copy to clipboard" icon to the right of the "GitHub webhook URL" field</li>
-  <li>Navigate to your repository on GitHub and click on repository settings &gt; webhooks &gt; Add webhook</li>
-  <li>Paste your webhook URL provided by OpenShift in the "Payload URL" field</li>
-  <li>Change the "Content type" to 'application/json'</li>
-  <li>Leave the defaults for the remaining fields &mdash; that's it!</li>
-</ol>
-<p>After you save your webhook, if you refresh your settings page you can see the status of the ping that Github sent to OpenShift to verify it can reach the server.</p>
-<p>Note: adding a webhook requires your OpenShift server to be reachable from GitHub.</p>
-
-                <h3>Working in your local Git repository</h3>
-                <p>If you forked the application from the OpenShift GitHub example, you'll need to manually clone the repository to your local system. Copy the application's source code Git URL and then run:</p>
-
-<pre>$ git clone &lt;git_url&gt; &lt;directory_to_create&gt;
-
-# Within your project directory
-# Commit your changes and push to OpenShift
-
-$ git commit -a -m 'Some commit message'
-$ git push</pre>
-
-<p>After pushing changes, you'll need to manually trigger a build if you did not setup a webhook as described above.</p>
-
-            </section>
-
-          </section>
-          <section class="col-xs-12 col-sm-6 col-md-6">
-
-                <h2>Managing your application</h2>
-
-                <p>Documentation on how to manage your application from the Web Console or Command Line is available at the <a href="http://docs.okd.io/latest/dev_guide/overview.html">Developer Guide</a>.</p>
-
-                <h3>Web Console</h3>
-                <p>You can use the Web Console to view the state of your application components and launch new builds.</p>
-
-                <h3>Command Line</h3>
-                <p>With the <a href="http://docs.okd.io/latest/cli_reference/overview.html">OpenShift command line interface</a> (CLI), you can create applications and manage projects from a terminal.</p>
-
-                <h2>Development Resources</h2>
-                  <ul>
-                    <li><a href="http://docs.okd.io/latest/welcome/index.html">OpenShift Documentation</a></li>
-                    <li><a href="https://github.com/openshift/origin">Openshift Origin GitHub</a></li>
-                    <li><a href="https://github.com/openshift/source-to-image">Source To Image GitHub</a></li>
-                    <li><a href="http://docs.okd.io/latest/using_images/s2i_images/nodejs.html">Getting Started with Node.js on OpenShift</a></li>
-                    <li><a href="http://stackoverflow.com/questions/tagged/openshift">Stack Overflow questions for OpenShift</a></li>
-                    <li><a href="http://git-scm.com/documentation">Git documentation</a></li>
-                  </ul>
-
-                <h2>Request information</h2>
-                <p>Page view count:
-                <% if (pageCountMessage) { %>
-                   <span class="code" id="count-value"><%=pageCountMessage%></span>
-                   </p>
-                    <div class="code"><h3>DB Connection Info:</h3>
-                      <table style='margin-left: 20px'>
-                          <tr><td>Type:</td><td><%= dbInfo.type %></td></tr>
-                          <tr><td>URL:</td><td><%= dbInfo.url %></td></tr>
-                      </table>
-                    </div>
-                <% } else { %>
-                   <span class="code" id="count-value">No database configured</span>
-                   </p>
-                <%} %>
-          </section>
+          <div id="content">
+            <h1>Change Calculator</h1>
+        
+            <label>Enter number of cents (0-99):</label>
+            <input type="text" id="cents" />
+            <input type="button" value="Calculate" name="calculate" id="calculate" onclick="calc()"/><br />
+        
+            <p>&nbsp;</p>
+                
+            <label>Quarters:</label>
+            <input type="text" id="quarters" class="disabled" disabled="disabled" /><br />
+                            
+            <label>Dimes:</label>
+            <input type="text" id="dimes" class="disabled" disabled="disabled" /><br />
+            
+            <label>Nickels:</label>
+            <input type="text" id="nickels" class="disabled" disabled="disabled" /><br />
+                
+            <label>Pennies:</label>
+            <input type="text" id="pennies" class="disabled" disabled="disabled" /><br />
+                            
+            <p>&nbsp;</p>
+        
         </div>
 
         <footer>
           <div class="logo"><a href="https://www.openshift.com/"></a></div>
         </footer>
+    <script>
+        // Function to calculate exact change based on input //
+        function calc() {
+            // Input from user //
+            var cents = document.getElementById("cents").value;
+
+            // Parsing input as an Integer, and creating values to store num of each coin //
+            var num = parseInt(cents);
+            var quar = 0;
+            var dime = 0;
+            var nick = 0;
+            var penn = 0;
+            
+            // while loop to continuously change the value of num until its 0 //
+            while (num != 0) {
+
+                // If the num is greater than 99, we send an error and break out of the loop //
+                if (num > 99) {
+                    alert("Number must be between 0 and 99");
+                    break
+                }
+
+                if (num >= 25) {
+                    // If the num is greater than 25, a quarter can be used //
+                    quar += 1;
+                    num -= 25;
+                }
+                else if (num >= 10) {
+                    // If the num is greater than 10, a dime can be used //
+                    dime += 1;
+                    num -= 10;
+                }
+                else if (num >= 5) {
+                    // If the num is greater than 5, a nickel can be used //
+                    nick += 1;
+                    num -= 5;
+                }
+                else if (num >= 1) {
+                    // If the num is greater than 1, a penny can be used //
+                    penn += 1;
+                    num -= 1;
+                }
+
+            }
+            
+            // Sets values on the page as the results from the calculation //
+            document.getElementById("quarters").value = quar;
+            document.getElementById("dimes").value = dime;
+            document.getElementById("nickels").value = nick;
+            document.getElementById("pennies").value = penn;
+
+        }
+    </script>
 </section>
 </body>
 </html>
